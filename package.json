@@ -1,0 +1,19 @@
+{
+  "name": "djtiq-tsnode-api",
+  "version": "1.0",
+  "main": "index.ts",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/server.ts",
+    "build": "sucrase ./src -d ./build --transforms typescript,imports",
+    "lint": "eslint . --ext .ts"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
+    "eslint": "^8.25.0",
+    "nodemon": "^2.0.20",
+    "sucrase": "^3.28.0",
+    "typescript": "^4.8.4"
+  }
+}
