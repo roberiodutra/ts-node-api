@@ -1,12 +1,19 @@
-import { model, Schema } from 'mongoose';
+import { model as mongooseCreateModel, Schema } from 'mongoose';
+import { IUser } from '../interfaces/IUser';
+import MongoModel from './MongoModel';
 
-const UserSchema = new Schema({
+const UserSchema = new Schema<IUser>({
   firstName: String,
   lastName: String,
-  email: String,
 }, {
   timestamps: true,
   versionKey: false,
 });
 
-export default model('User', UserSchema);
+class User extends MongoModel<IUser> {
+  constructor(model = mongooseCreateModel('User', UserSchema)) {
+    super(model);
+  }
+}
+
+export default new User();
