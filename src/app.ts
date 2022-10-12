@@ -18,6 +18,10 @@ class App {
       return res.send('hellow world');
     });
   }
+
+  public start(PORT: string | number):void {
+    this.app.listen(PORT, () => console.log(`Running on port ${PORT}`));
+  }
 }
 
 export default new App();
