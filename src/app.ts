@@ -6,20 +6,22 @@ class App {
 
   public constructor() {
     this.app = express();
+    this.config();
+    this.routes();
   }
 
-  private middlewares() {
+  private config() {
     this.app.use(express.json());
     this.app.use(cors());
   }
 
   private routes() {
-    this.app.get('/', (req, res) => {
+    this.app.get('/', (_req, res) => {
       return res.send('hellow world');
     });
   }
 
-  public start(PORT: string | number):void {
+  public start(PORT: string | number) {
     this.app.listen(PORT, () => console.log(`Running on port ${PORT}`));
   }
 }

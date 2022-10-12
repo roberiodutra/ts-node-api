@@ -1,3 +1,6 @@
-const abc = 16;
+import App from './app';
+import 'dotenv/config';
 
-console.log(abc);
+const PORT = process.env.APP_PORT || 3001;
+
+App.start(PORT);
