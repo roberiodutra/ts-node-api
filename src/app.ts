@@ -1,5 +1,6 @@
 import express from "express";
 import cors from 'cors';
+import Endpoints from './routes';
 
 class App {
   public app: express.Application;
@@ -16,9 +17,7 @@ class App {
   }
 
   private routes() {
-    this.app.get('/', (_req, res) => {
-      return res.send('hellow world');
-    });
+    this.app.use(Endpoints);
   }
 
   public start(PORT: string | number) {
