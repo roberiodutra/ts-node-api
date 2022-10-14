@@ -1,6 +1,10 @@
 import { IUser } from '../interfaces/IUser';
 import { IModel } from '../../../../database/interfaces/IModel';
 import UserModel from '../../../../database/models/User';
+import Bcrypt from '../../../../helpers/Bcrypt';
+import Err from '../../../../helpers/HttpException';
+import tokenGenerator from '../../../../helpers/TokenGenerator';
+import { ILoggedUser } from '../interfaces/ILoggedUser';
 
 class UserService implements IModel<IUser> {
   constructor(private model = UserModel) {}
@@ -13,15 +17,15 @@ class UserService implements IModel<IUser> {
     return this.model.read();
   }
 
-  async login(email: string, pass: string): Promise<IUser | null> {
-    const md5Hash = encryptPassword(pass);
+  public async login(email: string, pass: string): Promise<ILoggedUser> {
     const user = await this.model.readOne(email);
+    const checkPass = Bcrypt.comparePass(pass, user?.password);
 
-    if (!user || user.password !== md5Hash) throw new CustomError('Not found', 404);
-    delete user.password;
-    const token = tokenGenerator(user);
+    if (!checkPass) throw new Err(404, 'Not found');
 
-    return ({ user, ...token });
+    const token = tokenGenerator(user?.email);
+
+    return ({ user: user?.email, ...token });
   }
 
   public readOne(id: string): Promise<IUser | null> {
