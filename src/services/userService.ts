@@ -5,23 +5,23 @@ import UserModel from '../models/User';
 class UserService implements IModel<IUser> {
   constructor(private model = UserModel) {}
 
-  public async create(obj: IUser): Promise<IUser> {
+  public create(obj: IUser): Promise<IUser> {
     return this.model.create(obj);
   }
 
-  public async read(): Promise<IUser[]> {
+  public read(): Promise<IUser[]> {
     return this.model.read();
   }
 
-  public async readOne(id: string): Promise<IUser | null> {
+  public readOne(id: string): Promise<IUser | null> {
     return this.model.readOne(id);
   }
 
-  public async update(id: string, payload: IUser): Promise<IUser | null> {
+  public update(id: string, payload: IUser): Promise<IUser | null> {
     return this.model.update(id, payload);
   }
 
-  public async delete(id: string): Promise<IUser | null> {
+  public delete(id: string): Promise<IUser | null> {
     return this.model.delete(id);
   }
 }

@@ -1,6 +1,7 @@
 import express from "express";
 import cors from 'cors';
 import Endpoints from './routes';
+import connectToDatabase from "./models/connection";
 
 class App {
   public app: express.Application;
@@ -9,6 +10,7 @@ class App {
     this.app = express();
     this.config();
     this.routes();
+    this.database();
   }
 
   private config() {
@@ -18,6 +20,10 @@ class App {
 
   private routes() {
     this.app.use(Endpoints);
+  }
+
+  private database() {
+    connectToDatabase();
   }
 
   public start(PORT: string | number) {

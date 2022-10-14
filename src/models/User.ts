@@ -3,6 +3,8 @@ import { IUser } from '../interfaces/IUser';
 import MongoModel from './MongoModel';
 
 const UserSchema = new Schema<IUser>({
+  email: String,
+  password: String,
   firstName: String,
   lastName: String,
 }, {
