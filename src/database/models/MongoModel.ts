@@ -12,8 +12,8 @@ abstract class MongoModel<T> implements IModel<T> {
     return this.model.find();
   }
 
-  public async readOne(_id: string): Promise<T | null> {
-    return this.model.findOne({ _id });
+  public async readOne(email: string): Promise<T | null> {
+    return this.model.findOne({ email });
   }
 
   public async update(_id: string, obj:Partial<T>): Promise<T | null> {

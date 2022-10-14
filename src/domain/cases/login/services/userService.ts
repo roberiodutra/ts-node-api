@@ -1,4 +1,4 @@
-import { IUser } from '../../../../database/interfaces/IUser';
+import { IUser } from '../interfaces/IUser';
 import { IModel } from '../../../../database/interfaces/IModel';
 import UserModel from '../../../../database/models/User';
 
@@ -11,6 +11,17 @@ class UserService implements IModel<IUser> {
 
   public read(): Promise<IUser[]> {
     return this.model.read();
+  }
+
+  async login(email: string, pass: string): Promise<IUser | null> {
+    const md5Hash = encryptPassword(pass);
+    const user = await this.model.readOne(email);
+
+    if (!user || user.password !== md5Hash) throw new CustomError('Not found', 404);
+    delete user.password;
+    const token = tokenGenerator(user);
+
+    return ({ user, ...token });
   }
 
   public readOne(id: string): Promise<IUser | null> {
