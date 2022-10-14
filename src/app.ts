@@ -1,7 +1,9 @@
 import express from "express";
+import 'express-async-errors';
 import cors from 'cors';
 import Endpoints from './routes';
-import connectToDatabase from "./models/connection";
+import connectToDatabase from "./database/models/connection";
+import ErrorHandler from "./middlewares/ErrorHandler";
 
 class App {
   public app: express.Application;
@@ -20,6 +22,7 @@ class App {
 
   private routes() {
     this.app.use(Endpoints);
+    this.app.use(ErrorHandler);
   }
 
   private database() {

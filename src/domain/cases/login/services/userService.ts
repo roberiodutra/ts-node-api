@@ -1,6 +1,6 @@
-import { IUser } from '../interfaces/IUser';
-import { IModel } from '../interfaces/IModel';
-import UserModel from '../models/User';
+import { IUser } from '../../../../database/interfaces/IUser';
+import { IModel } from '../../../../database/interfaces/IModel';
+import UserModel from '../../../../database/models/User';
 
 class UserService implements IModel<IUser> {
   constructor(private model = UserModel) {}
