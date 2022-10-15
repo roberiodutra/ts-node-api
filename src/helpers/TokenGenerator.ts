@@ -2,7 +2,11 @@ import { sign, Secret, SignOptions } from 'jsonwebtoken';
 
 const SECRET: Secret = process.env.SECRET || 'vnetod';
 
-export default function tokenGenerator(payload: string) {
+interface userInfo {
+  email: string
+}
+
+export default function tokenGenerator(payload: userInfo) {
   const jwtConfig: SignOptions = {
     expiresIn: '365d',
     algorithm: 'HS256',

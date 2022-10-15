@@ -1,26 +1,27 @@
 import { Model } from 'mongoose';
+import { IUser } from '../../domain/cases/login/interfaces/IUser';
 import { IModel } from '../interfaces/IModel';
 
-abstract class MongoModel<T> implements IModel<T> {
-  constructor(protected model: Model<T>) {}
+abstract class MongoModel implements IModel {
+  constructor(protected model: typeof Model) {}
 
-  public async create(obj: T): Promise<T> {
+  public async create(obj: IUser) {
     return this.model.create({ ...obj });
   }
 
-  public async read(): Promise<T[]> {
+  public async read() {
     return this.model.find();
   }
 
-  public async readOne(email: string): Promise<T | null> {
+  public async readOne(email: string) {
     return this.model.findOne({ email });
   }
 
-  public async update(_id: string, obj:Partial<T>): Promise<T | null> {
+  public async update(_id: string, obj: IUser) {
     return this.model.findByIdAndUpdate({ _id }, obj);
   }
 
-  public async delete(_id: string): Promise<T | null> {
+  public async delete(_id: string) {
     return this.model.findByIdAndDelete({ _id });
   }
 }

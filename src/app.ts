@@ -11,8 +11,8 @@ class App {
   public constructor() {
     this.app = express();
     this.config();
-    this.routes();
     this.database();
+    this.routes();
   }
 
   private config() {
@@ -20,14 +20,15 @@ class App {
     this.app.use(cors());
   }
 
+  private database() {
+    connectToDatabase();
+  }
+
   private routes() {
     this.app.use(Endpoints);
     this.app.use(ErrorHandler);
   }
 
-  private database() {
-    connectToDatabase();
-  }
 
   public start(PORT: string | number) {
     this.app.listen(PORT, () => console.log(`Running on port ${PORT}`));

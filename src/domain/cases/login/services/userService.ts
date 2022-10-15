@@ -5,15 +5,16 @@ import Bcrypt from '../../../../helpers/Bcrypt';
 import Err from '../../../../helpers/HttpException';
 import tokenGenerator from '../../../../helpers/TokenGenerator';
 import { ILoggedUser } from '../interfaces/ILoggedUser';
+import { IUserInfo } from '../interfaces/IUserInfo';
 
-class UserService implements IModel<IUser> {
+class UserService implements IModel {
   constructor(private model = UserModel) {}
 
-  public create(obj: IUser): Promise<IUser> {
+  public create(obj: IUser): Promise<IUserInfo> {
     return this.model.create(obj);
   }
 
-  public read(): Promise<IUser[]> {
+  public read(): Promise<IUserInfo[]> {
     return this.model.read();
   }
 
@@ -23,20 +24,20 @@ class UserService implements IModel<IUser> {
 
     if (!checkPass) throw new Err(404, 'Not found');
 
-    const token = tokenGenerator(user?.email);
+    const { token } = tokenGenerator({ email });
 
-    return ({ user: user?.email, ...token });
+    return ({ email, token });
   }
 
-  public readOne(id: string): Promise<IUser | null> {
+  public readOne(id: string): Promise<IUserInfo> {
     return this.model.readOne(id);
   }
 
-  public update(id: string, payload: IUser): Promise<IUser | null> {
+  public update(id: string, payload: IUser): Promise<IUserInfo> {
     return this.model.update(id, payload);
   }
 
-  public delete(id: string): Promise<IUser | null> {
+  public delete(id: string): Promise<void> {
     return this.model.delete(id);
   }
 }
