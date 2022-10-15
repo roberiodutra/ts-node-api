@@ -1,11 +1,11 @@
 import bcrypt from 'bcrypt';
 
 class Bcrypt {
-  public hashPass = (password: string) => {
+  public hashPass = async (password: string) => {
     return bcrypt.hash(password, 10);
   };
 
-  public comparePass = (password: string, hash: string) => {
+  public comparePass = async (password: string, hash: string) => {
     return bcrypt.compare(password, hash);
   };
 }

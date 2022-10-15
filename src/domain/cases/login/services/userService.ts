@@ -10,8 +10,16 @@ import { IUserInfo } from '../interfaces/IUserInfo';
 class UserService implements IModel {
   constructor(private model = UserModel) {}
 
-  public create(obj: IUser): Promise<IUserInfo> {
-    return this.model.create(obj);
+  public async create(obj: IUser): Promise<ILoggedUser> {
+    const userExists = await this.model.readOne(obj.email);
+    if (userExists) throw new Err(409, 'User Already Exists');
+
+    const encryptPass = await Bcrypt.hashPass(obj.password);
+    await this.model.create({ ...obj, password: encryptPass });
+
+    const { token } = tokenGenerator({ email: obj.email });
+
+    return ({ email: obj.email, token });
   }
 
   public read(): Promise<IUserInfo[]> {
@@ -22,7 +30,7 @@ class UserService implements IModel {
     const user = await this.model.readOne(email);
     if (!user) throw new Err(404, 'User Not found');
 
-    const checkPass = Bcrypt.comparePass(pass, user.password);
+    const checkPass = await Bcrypt.comparePass(pass, user.password);
     if (!checkPass) throw new Err(404, 'Wrong Password');
 
     const { token } = tokenGenerator({ email });
