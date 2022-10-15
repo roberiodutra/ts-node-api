@@ -2,10 +2,10 @@ import { IUser, UserSchema } from '../interfaces/IUser';
 import { IModel } from '../../../../database/interfaces/IModel';
 import UserModel from '../../../../database/models/User';
 import Bcrypt from '../../../../helpers/Bcrypt';
-import Err from '../../../../helpers/HttpException';
 import tokenGenerator from '../../../../helpers/TokenGenerator';
 import { ILoggedUser } from '../interfaces/ILoggedUser';
 import { IUserInfo } from '../interfaces/IUserInfo';
+import { ErrorTypes } from '../../../../helpers/ErrorCatalog';
 
 class UserService implements IModel {
   constructor(private model = UserModel) {}
@@ -18,7 +18,7 @@ class UserService implements IModel {
     }
 
     const userExists = await this.model.readOne(obj.email);
-    if (userExists) throw new Err(409, 'User Already Exists');
+    if (userExists) throw new Error(ErrorTypes.UserExists);
 
     const encryptPass = await Bcrypt.hashPass(obj.password);
     await this.model.create({ ...obj, password: encryptPass });
@@ -34,10 +34,10 @@ class UserService implements IModel {
 
   public async login(email: string, pass: string): Promise<ILoggedUser> {
     const user = await this.model.readOne(email);
-    if (!user) throw new Err(404, 'User Not found');
+    if (!user) throw new Error(ErrorTypes.UserNotFound);
 
     const checkPass = await Bcrypt.comparePass(pass, user.password);
-    if (!checkPass) throw new Err(404, 'Wrong Password');
+    if (!checkPass) throw new Error(ErrorTypes.WrongPassword);
 
     const { token } = tokenGenerator({ email });
 

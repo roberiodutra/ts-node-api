@@ -1,6 +1,6 @@
 import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
 import { ZodError } from 'zod';
-import HttpException from '../helpers/HttpException';
+import { errorCatalog, ErrorTypes } from '../helpers/ErrorCatalog';
 
 const ErrorHandler: ErrorRequestHandler = (
   err: Error | ZodError,
@@ -9,14 +9,18 @@ const ErrorHandler: ErrorRequestHandler = (
   _next: NextFunction,
 ) => {
   if (err instanceof ZodError) {
-    res.status(400).json({ message: err.issues });
+    const response = err.issues.map((z) => z.message);
+    res.status(400).json({ message: response });
   }
-  const { code, message } = err as HttpException;
+  const messageAsErrorType = err.message as keyof typeof ErrorTypes;
+  const mappedError = errorCatalog[messageAsErrorType];
 
-  res.status(code || 500)
-    .json({
-      message,
-    });
+  if (mappedError) {
+    const { code, message } = mappedError;
+    res.status(code).json({ message });
+  }
+
+  res.status(500).json({ message: 'Internal Error' });
 };
 
 export default ErrorHandler;
