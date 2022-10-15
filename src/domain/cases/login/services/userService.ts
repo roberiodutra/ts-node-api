@@ -20,17 +20,18 @@ class UserService implements IModel {
 
   public async login(email: string, pass: string): Promise<ILoggedUser> {
     const user = await this.model.readOne(email);
-    const checkPass = Bcrypt.comparePass(pass, user?.password);
+    if (!user) throw new Err(404, 'User Not found');
 
-    if (!checkPass) throw new Err(404, 'Not found');
+    const checkPass = Bcrypt.comparePass(pass, user.password);
+    if (!checkPass) throw new Err(404, 'Wrong Password');
 
     const { token } = tokenGenerator({ email });
 
     return ({ email, token });
   }
 
-  public readOne(id: string): Promise<IUserInfo> {
-    return this.model.readOne(id);
+  public readOne(email: string): Promise<IUserInfo> {
+    return this.model.readOne(email);
   }
 
   public update(id: string, payload: IUser): Promise<IUserInfo> {

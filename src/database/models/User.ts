@@ -7,6 +7,7 @@ const UserSchema = new Schema<IUser>({
   password: String,
   firstName: String,
   lastName: String,
+  role: String,
 }, {
   timestamps: true,
   versionKey: false,
