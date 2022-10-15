@@ -11,21 +11,22 @@ class UserService implements IModel {
   constructor(private model = UserModel) {}
 
   public async create(obj: IUser): Promise<ILoggedUser> {
+    const { email, password } = obj;
     const parsed = UserSchema.safeParse(obj);
   
     if (!parsed.success) {
       throw parsed.error;
     }
 
-    const userExists = await this.model.readOne(obj.email);
+    const userExists = await this.model.readOne(email);
     if (userExists) throw new Error(ErrorTypes.UserExists);
 
-    const encryptPass = await Bcrypt.hashPass(obj.password);
+    const encryptPass = await Bcrypt.hashPass(password);
     await this.model.create({ ...obj, password: encryptPass });
 
-    const { token } = tokenGenerator({ email: obj.email });
+    const { token } = tokenGenerator({ email });
 
-    return ({ email: obj.email, token });
+    return ({ email, token });
   }
 
   public read(): Promise<IUserInfo[]> {

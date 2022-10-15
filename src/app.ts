@@ -29,7 +29,6 @@ class App {
     this.app.use(ErrorHandler);
   }
 
-
   public start(PORT: string | number) {
     this.app.listen(PORT, () => console.log(`Running on port ${PORT}`));
   }
