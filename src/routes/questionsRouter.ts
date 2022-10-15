@@ -1,13 +1,13 @@
 import { Router } from 'express';
-import UserController from '../domain/cases/login/controllers/userController';
+import questionController from '../domain/cases/questions/controllers/questionController';
 
 const route = Router();
 
 
-route.post('/', UserController.create);
-route.get('/', UserController.read);
-route.get('/:id', UserController.readOne);
-route.put('/:id', UserController.update);
-route.delete('/:id', UserController.delete);
+route.post('/', questionController.create);
+route.get('/', questionController.read);
+route.get('/:id', questionController.readOne);
+route.put('/:id', questionController.update);
+route.delete('/:id', questionController.delete);
 
 export default route;
