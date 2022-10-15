@@ -1,8 +1,8 @@
 import { model as mongooseCreateModel, Schema } from 'mongoose';
-import { IUser } from '../../domain/cases/login/interfaces/IUser';
+import { IQuestion } from '../../domain/cases/questions/interfaces/IQuestion';
 import MongoModel from './MongoModel';
 
-const QuestionSchema = new Schema({
+const QuestionSchema = new Schema<IQuestion>({
   userId: String,
   question: String,
   answer: String,
