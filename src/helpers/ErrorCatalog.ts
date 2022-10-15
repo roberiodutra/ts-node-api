@@ -9,11 +9,11 @@ type ErrorResponseObject = {
   code: number;
 };
 
-export type ErrorCatalog = {
+type catalog = {
   [key in ErrorTypes]: ErrorResponseObject
 };
 
-export const errorCatalog: ErrorCatalog = {
+export const ErrorCatalog: catalog = {
   UserExists: {
     message: 'User Already Exists',
     code: 409,

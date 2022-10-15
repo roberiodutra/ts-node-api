@@ -1,6 +1,6 @@
 import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
+import { ErrorCatalog, ErrorTypes } from '../helpers/ErrorCatalog';
 import { ZodError } from 'zod';
-import { errorCatalog, ErrorTypes } from '../helpers/ErrorCatalog';
 
 const ErrorHandler: ErrorRequestHandler = (
   err: Error | ZodError,
@@ -13,7 +13,7 @@ const ErrorHandler: ErrorRequestHandler = (
     res.status(400).json({ message: response });
   }
   const messageAsErrorType = err.message as keyof typeof ErrorTypes;
-  const mappedError = errorCatalog[messageAsErrorType];
+  const mappedError = ErrorCatalog[messageAsErrorType];
 
   if (mappedError) {
     const { code, message } = mappedError;
