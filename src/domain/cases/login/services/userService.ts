@@ -16,7 +16,7 @@ class UserService implements IModel {
   
     if (!parsed.success) throw parsed.error;
 
-    const userExists = await this.model.readOne(email);
+    const userExists = await this.model.readByEmail(email);
     if (userExists) throw new Error(ErrorTypes.UserExists);
 
     const encryptPass = await Bcrypt.hashPass(password);
@@ -32,7 +32,7 @@ class UserService implements IModel {
   }
 
   public async login(email: string, pass: string): Promise<ILoggedUser> {
-    const user = await this.model.readOne(email);
+    const user = await this.model.readByEmail(email);
     if (!user) throw new Error(ErrorTypes.UserNotFound);
 
     const checkPass = await Bcrypt.comparePass(pass, user.password);
@@ -43,8 +43,8 @@ class UserService implements IModel {
     return ({ email, token });
   }
 
-  public readOne(email: string): Promise<IUserInfo> {
-    return this.model.readOne(email);
+  public readOne(id: string): Promise<IUserInfo> {
+    return this.model.readOne(id);
   }
 
   public update(id: string, payload: IUser): Promise<IUserInfo> {

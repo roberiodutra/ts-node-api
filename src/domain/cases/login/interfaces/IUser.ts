@@ -12,6 +12,6 @@ export const UserSchema = z.object({
     message: 'LastName must be at least 3 characters long',
   }),
   role: z.string(),
-});
+}).strict();
 
 export type IUser = z.infer<typeof UserSchema>;

@@ -13,8 +13,8 @@ abstract class MongoModel implements IModel {
     return this.model.find();
   }
 
-  public async readOne(email: string) {
-    return this.model.findOne({ email });
+  public async readOne(_id: string) {
+    return this.model.findOne({ _id });
   }
 
   public async update(_id: string, obj: IUser) {
