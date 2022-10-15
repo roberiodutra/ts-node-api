@@ -11,12 +11,10 @@ class UserService implements IModel {
   constructor(private model = UserModel) {}
 
   public async create(obj: IUser): Promise<ILoggedUser> {
-    const { email, password } = obj;
     const parsed = UserSchema.safeParse(obj);
+    const { email, password } = obj;
   
-    if (!parsed.success) {
-      throw parsed.error;
-    }
+    if (!parsed.success) throw parsed.error;
 
     const userExists = await this.model.readOne(email);
     if (userExists) throw new Error(ErrorTypes.UserExists);
