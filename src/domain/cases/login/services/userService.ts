@@ -1,4 +1,4 @@
-import { IUser } from '../interfaces/IUser';
+import { IUser, UserSchema } from '../interfaces/IUser';
 import { IModel } from '../../../../database/interfaces/IModel';
 import UserModel from '../../../../database/models/User';
 import Bcrypt from '../../../../helpers/Bcrypt';
@@ -11,6 +11,12 @@ class UserService implements IModel {
   constructor(private model = UserModel) {}
 
   public async create(obj: IUser): Promise<ILoggedUser> {
+    const parsed = UserSchema.safeParse(obj);
+  
+    if (!parsed.success) {
+      throw parsed.error;
+    }
+
     const userExists = await this.model.readOne(obj.email);
     if (userExists) throw new Err(409, 'User Already Exists');
 
