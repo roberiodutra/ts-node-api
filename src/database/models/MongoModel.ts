@@ -2,7 +2,7 @@ import { Model } from 'mongoose';
 import { IModel } from '../interfaces/IModel';
 
 abstract class MongoModel<T> implements IModel<T> {
-  constructor(protected model: typeof Model) {}
+  constructor(protected model: typeof Model) { }
 
   public async create(obj: T) {
     return this.model.create({ ...obj });
