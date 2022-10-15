@@ -1,11 +1,10 @@
 import { Model } from 'mongoose';
-import { IUser } from '../../domain/cases/login/interfaces/IUser';
 import { IModel } from '../interfaces/IModel';
 
-abstract class MongoModel implements IModel {
+abstract class MongoModel<T> implements IModel<T> {
   constructor(protected model: typeof Model) {}
 
-  public async create(obj: IUser) {
+  public async create(obj: T) {
     return this.model.create({ ...obj });
   }
 
@@ -17,7 +16,7 @@ abstract class MongoModel implements IModel {
     return this.model.findOne({ _id });
   }
 
-  public async update(_id: string, obj: IUser) {
+  public async update(_id: string, obj:Partial<T>) {
     return this.model.findByIdAndUpdate({ _id }, obj);
   }
 

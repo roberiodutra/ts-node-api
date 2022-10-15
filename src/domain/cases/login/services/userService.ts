@@ -1,5 +1,4 @@
 import { IUser, UserSchema } from '../interfaces/IUser';
-import { IModel } from '../../../../database/interfaces/IModel';
 import UserModel from '../../../../database/models/User';
 import Bcrypt from '../../../../helpers/Bcrypt';
 import tokenGenerator from '../../../../helpers/TokenGenerator';
@@ -7,7 +6,7 @@ import { ILoggedUser } from '../interfaces/ILoggedUser';
 import { IUserInfo } from '../interfaces/IUserInfo';
 import { ErrorTypes } from '../../../../helpers/ErrorCatalog';
 
-class UserService implements IModel {
+class UserService {
   constructor(private model = UserModel) {}
 
   public async create(obj: IUser): Promise<ILoggedUser> {

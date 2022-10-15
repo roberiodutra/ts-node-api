@@ -13,7 +13,7 @@ const UserSchema = new Schema<IUser>({
   versionKey: false,
 });
 
-class User extends MongoModel {
+class User extends MongoModel<IUser> {
   constructor(model = mongooseCreateModel('User', UserSchema)) {
     super(model);
   }

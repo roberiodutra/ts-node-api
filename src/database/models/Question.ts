@@ -11,7 +11,7 @@ const QuestionSchema = new Schema<IQuestion>({
   versionKey: false,
 });
 
-class Question extends MongoModel {
+class Question extends MongoModel<IQuestion> {
   constructor(model = mongooseCreateModel('Question', QuestionSchema)) {
     super(model);
   }

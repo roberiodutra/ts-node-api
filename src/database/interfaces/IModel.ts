@@ -1,11 +1,7 @@
-import { ILoggedUser } from "../../domain/cases/login/interfaces/ILoggedUser";
-import { IUser } from "../../domain/cases/login/interfaces/IUser";
-import { IUserInfo } from "../../domain/cases/login/interfaces/IUserInfo";
-
-export interface IModel {
-  create(obj: IUser): Promise<ILoggedUser>;
-  read(): Promise<IUserInfo[]>;
-  readOne(email: string): Promise<IUserInfo>;
-  update(id: string, obj: IUser): Promise<IUserInfo>;
+export interface IModel<T> {
+  create(obj: T): Promise<T>;
+  read(): Promise<T[]>;
+  readOne(id: string): Promise<T>;
+  update(id: string, obj: T): Promise<T>;
   delete(id: string): Promise<void>;
 }
