@@ -2,6 +2,8 @@ export enum ErrorTypes {
   UserExists = 'UserExists',
   UserNotFound = 'UserNotFound',
   WrongPassword = 'WrongPassword',
+  TokenNotFound = 'TokenNotFound',
+  InvalidToken = 'InvalidToken',
 }
 
 type ErrorResponseObject = {
@@ -24,6 +26,14 @@ export const ErrorCatalog: catalog = {
   },
   WrongPassword: {
     message: 'Wrong Password',
+    code: 401,
+  },
+  TokenNotFound: {
+    message: 'Token Not Found',
+    code: 404,
+  },
+  InvalidToken: {
+    message: 'Invalid Token',
     code: 401,
   },
 };

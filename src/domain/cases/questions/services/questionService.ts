@@ -1,6 +1,5 @@
 import { IQuestion, QuestionSchema } from '../interfaces/IQuestion';
 import QuestionModel from '../../../../database/models/Question';
-import { ErrorTypes } from '../../../../helpers/ErrorCatalog';
 import { IQuestionInfo } from '../interfaces/IQuestionInfo';
 
 class QuestionService {

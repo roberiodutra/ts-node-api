@@ -6,6 +6,7 @@ const QuestionSchema = new Schema<IQuestion>({
   userId: String,
   question: String,
   answer: String,
+  status: String,
 }, {
   timestamps: true,
   versionKey: false,
