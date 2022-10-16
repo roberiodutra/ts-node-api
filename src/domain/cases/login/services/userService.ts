@@ -21,9 +21,10 @@ class UserService {
     const encryptPass = await Bcrypt.hashPass(password);
     await this.model.create({ ...obj, password: encryptPass });
 
-    const { token } = tokenGenerator({ email });
+    const userInfo = { id: userExists._id, email, role: userExists.role };
+    const { token } = tokenGenerator(userInfo);
 
-    return ({ email, token });
+    return ({ ...userInfo, token });
   }
 
   public read(): Promise<IUserInfo[]> {
@@ -37,9 +38,10 @@ class UserService {
     const checkPass = await Bcrypt.comparePass(pass, user.password);
     if (!checkPass) throw new Error(ErrorTypes.WrongPassword);
 
-    const { token } = tokenGenerator({ email });
+    const userInfo = { id: user._id, email, role: user.role };
+    const { token } = tokenGenerator(userInfo);
 
-    return ({ email, token });
+    return ({ ...userInfo, token });
   }
 
   public readOne(id: string): Promise<IUserInfo> {
