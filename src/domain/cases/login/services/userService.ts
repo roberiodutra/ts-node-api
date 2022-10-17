@@ -19,9 +19,9 @@ class UserService {
     if (userExists) throw new Error(ErrorTypes.UserExists);
 
     const encryptPass = await Bcrypt.hashPass(password);
-    await this.model.create({ ...obj, password: encryptPass });
+    const user = await this.model.create({ ...obj, password: encryptPass });
 
-    const userInfo = { id: userExists._id, email, role: userExists.role };
+    const userInfo = { id: user._id, email, role: user.role };
     const { token } = tokenGenerator(userInfo);
 
     return ({ ...userInfo, token });
