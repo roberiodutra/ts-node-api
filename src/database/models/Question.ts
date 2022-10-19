@@ -4,6 +4,7 @@ import MongoModel from './MongoModel';
 
 const QuestionSchema = new Schema<IQuestion>({
   userId: String,
+  author: String,
   question: String,
   answer: String,
   status: String,
