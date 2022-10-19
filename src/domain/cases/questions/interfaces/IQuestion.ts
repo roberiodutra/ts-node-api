@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 export const QuestionSchema = z.object({
   userId: z.string(),
+  author: z.string(),
   question: z.string(),
   answer: z.string().url(),
   status: z.string(),
