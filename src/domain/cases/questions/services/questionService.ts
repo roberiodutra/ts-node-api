@@ -1,20 +1,21 @@
 import { IQuestion, QuestionSchema } from '../interfaces/IQuestion';
 import QuestionModel from '../../../../database/models/Question';
 import { IQuestionInfo } from '../interfaces/IQuestionInfo';
+import { IFilterQuestions } from '../interfaces/IFilterQuestions';
 
 class QuestionService {
-  constructor(private model = QuestionModel) {}
+  constructor(private model = QuestionModel) { }
 
   public async create(obj: IQuestion): Promise<IQuestionInfo> {
     const parsed = QuestionSchema.safeParse(obj);
-  
+
     if (!parsed.success) throw parsed.error;
 
     return await this.model.create(obj);
   }
 
-  public read(): Promise<IQuestionInfo[]> {
-    return this.model.read();
+  public read(page: number, limit: number): Promise<IFilterQuestions> {
+    return this.model.read(page, limit);
   }
 
   public readOne(id: string): Promise<IQuestionInfo> {
