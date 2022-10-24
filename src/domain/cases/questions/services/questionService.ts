@@ -1,6 +1,6 @@
 import { IQuestion, QuestionSchema } from '../interfaces/IQuestion';
 import QuestionModel from '../../../../database/models/Question';
-import { IQuestionInfo } from '../interfaces/IQuestionInfo';
+import { IQuestionCount, IQuestionInfo } from '../interfaces/IQuestionInfo';
 import { IFilterQuestions } from '../interfaces/IFilterQuestions';
 
 class QuestionService {
@@ -14,7 +14,7 @@ class QuestionService {
     return await this.model.create(obj);
   }
 
-  public read(page: number, limit: number): Promise<IFilterQuestions> {
+  public read(page: number, limit: number): Promise<IQuestionCount[]> {
     return this.model.read(page, limit);
   }
 

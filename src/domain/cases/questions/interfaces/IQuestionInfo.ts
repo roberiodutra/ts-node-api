@@ -5,3 +5,7 @@ export interface IQuestionInfo extends IQuestion {
   createdAt: string,
   updatedAt: string,
 }
+
+export interface IQuestionCount extends IQuestionInfo {
+  total: [{ count: number }];
+}
