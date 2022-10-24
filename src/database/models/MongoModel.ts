@@ -9,7 +9,11 @@ abstract class MongoModel<T> implements IModel<T> {
     return this.model.create({ ...obj });
   }
 
-  public async read(page: number, limit: number): Promise<IQuestionCount[]> {
+  public async read(
+    page: number,
+    limit: number,
+    status: string,
+  ): Promise<IQuestionCount[]> {
     const countPipeline = [{
       $match: { status: "published" },
     }, {
@@ -19,7 +23,7 @@ abstract class MongoModel<T> implements IModel<T> {
     }];
 
     const questionsPipeline = [{
-      $match: {}
+      $match: { status }
     }, {
       $skip: (page - 1) * limit,
     }, {

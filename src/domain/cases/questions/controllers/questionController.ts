@@ -10,8 +10,12 @@ class QuestionController {
   };
 
   public read = async (req: Request, res: Response) => {
-    const { page, limit } = req.query;
-    const result = await this.service.read(Number(page), Number(limit));
+    const { page, limit, status } = req.query;
+    const result = await this.service.read(
+      Number(page),
+      Number(limit),
+      String(status),
+    );
     res.status(200).json(result);
   };
 
