@@ -9,12 +9,13 @@ class QuestionController {
     res.status(201).json(result);
   };
 
-  public read = async (req: Request, res: Response) => {
-    const { page, limit, status } = req.query;
-    const result = await this.service.read(
+  public filterQuestions = async (req: Request, res: Response) => {
+    const { page, limit, status, userId } = req.query;
+    const result = await this.service.filterQuestions(
       Number(page),
       Number(limit),
       String(status),
+      String(userId),
     );
     res.status(200).json(result);
   };

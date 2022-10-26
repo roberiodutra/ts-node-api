@@ -32,10 +32,6 @@ class UserService {
     return ({ ...userInfo, token });
   }
 
-  public read() {
-    return this.model.read();
-  }
-
   public async login(email: string, pass: string) {
     const user = await this.model.readByEmail(email);
     if (!user) throw new Error(ErrorTypes.UserNotFound);

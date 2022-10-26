@@ -14,12 +14,13 @@ class QuestionService {
     return await this.model.create(obj);
   }
 
-  public read(
+  public filterQuestions(
     page: number,
     limit: number,
     status: string,
+    userId: string,
   ): Promise<IQuestionCount[]> {
-    return this.model.read(page, limit, status);
+    return this.model.filterQuestions(page, limit, status, userId);
   }
 
   public readOne(id: string): Promise<IQuestionInfo> {

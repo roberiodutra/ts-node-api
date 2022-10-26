@@ -2,16 +2,11 @@ import { Request, Response } from 'express';
 import UserService from '../services/userService';
 
 class UserController {
-  constructor(private service = UserService) {}
+  constructor(private service = UserService) { }
 
   public create = async (req: Request, res: Response) => {
     const result = await this.service.create(req.body);
     res.status(201).json(result);
-  };
-
-  public read = async (_req: Request, res: Response) => {
-    const result = await this.service.read();
-    res.status(200).json(result);
   };
 
   public login = async (req: Request, res: Response) => {

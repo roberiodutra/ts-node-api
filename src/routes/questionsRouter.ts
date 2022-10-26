@@ -5,7 +5,7 @@ const route = Router();
 
 
 route.post('/', questionController.create);
-route.get('/', questionController.read);
+route.get('/', questionController.filterQuestions);
 route.get('/:id', questionController.readOne);
 route.put('/:id', questionController.update);
 route.delete('/:id', questionController.delete);
