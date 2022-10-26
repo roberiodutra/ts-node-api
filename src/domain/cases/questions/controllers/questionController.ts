@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { IReqQuery } from '../interfaces/IReqQuery';
 import questionService from '../services/questionService';
 
 class QuestionController {
@@ -10,12 +11,12 @@ class QuestionController {
   };
 
   public filterQuestions = async (req: Request, res: Response) => {
-    const { page, limit, status, userId } = req.query;
+    const { page, limit, status, userId } = req.query as unknown as IReqQuery;
     const result = await this.service.filterQuestions(
-      Number(page),
-      Number(limit),
-      String(status),
-      String(userId),
+      page,
+      limit,
+      status,
+      userId,
     );
     res.status(200).json(result);
   };
