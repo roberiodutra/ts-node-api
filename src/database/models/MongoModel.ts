@@ -16,6 +16,10 @@ abstract class MongoModel<T> implements IModel<T> {
     return this.model.findOne({ _id });
   }
 
+  public async readByEmail(email: string) {
+    return this.model.findOne({ email });
+  }
+
   public async update(_id: string, obj: Partial<T>) {
     return this.model.findByIdAndUpdate({ _id }, obj);
   }

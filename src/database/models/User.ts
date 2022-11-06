@@ -17,10 +17,6 @@ class User extends MongoModel<IUser> {
   constructor(model = mongooseCreateModel('User', UserSchema)) {
     super(model);
   }
-
-  public readByEmail(email: string) {
-    return this.model.findOne({ email });
-  }
 }
 
 export default new User();

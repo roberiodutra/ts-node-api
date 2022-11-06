@@ -2,7 +2,7 @@ import chai from 'chai';
 import sinon from 'sinon';
 import chaiHttp from 'chai-http';
 import server from '../../app';
-import User from '../../database/models/User';
+import MongoModel from '../../database/models/MongoModel';
 import { getUser, signInUser, sign } from '../mocks/usersMock';
 
 chai.use(chaiHttp);
@@ -12,7 +12,7 @@ describe('Sign in route tests', () => {
   afterEach(() => sinon.restore());
 
   it('On success', async () => {
-    sinon.stub(User, 'readByEmail').resolves(getUser);
+    sinon.stub(MongoModel.prototype, 'readByEmail').resolves(getUser);
     await chai.request(server.app)
       .post('/sign_in')
       .send(signInUser)
@@ -24,7 +24,7 @@ describe('Sign in route tests', () => {
   });
 
   it('When email is wrong', async () => {
-    sinon.stub(User, 'readByEmail').resolves();
+    sinon.stub(MongoModel.prototype, 'readByEmail').resolves();
     await chai.request(server.app)
       .post('/sign_in')
       .send({ ...signInUser, email: "wrong" })
@@ -35,7 +35,7 @@ describe('Sign in route tests', () => {
   });
 
   it('When invalid password', async () => {
-    sinon.stub(User, 'readByEmail').resolves(getUser);
+    sinon.stub(MongoModel.prototype, 'readByEmail').resolves(getUser);
     await chai.request(server.app)
       .post('/sign_in')
       .send({ ...signInUser, password: "wrong" })
@@ -46,7 +46,7 @@ describe('Sign in route tests', () => {
   });
 
   it('Internal error', async () => {
-    sinon.stub(User, 'readByEmail').resolves(getUser);
+    sinon.stub(MongoModel.prototype, 'readByEmail').resolves(getUser);
     await chai.request(server.app)
       .post('/sign_in')
       .then(({ status, body }) => {

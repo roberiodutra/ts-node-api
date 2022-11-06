@@ -2,17 +2,17 @@ import chai from 'chai';
 import sinon from 'sinon';
 import chaiHttp from 'chai-http';
 import server from '../../app';
-import User from '../../database/models/User';
 import { getUser } from '../mocks/usersMock';
+import MongoModel from '../../database/models/MongoModel';
 
 chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('User route tests', () => {
   beforeEach(() => {
-    sinon.stub(User, 'readOne').resolves(getUser);
-    sinon.stub(User, 'update').resolves(getUser);
-    sinon.stub(User, 'delete').resolves();
+    sinon.stub(MongoModel.prototype, 'readOne').resolves(getUser);
+    sinon.stub(MongoModel.prototype, 'update').resolves(getUser);
+    sinon.stub(MongoModel.prototype, 'delete').resolves();
   });
 
   afterEach(() => sinon.restore());
