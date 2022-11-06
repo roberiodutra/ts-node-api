@@ -2,8 +2,6 @@ import { IUser, UserSchema } from '../interfaces/IUser';
 import UserModel from '../../../../database/models/User';
 import Bcrypt from '../../../../helpers/Bcrypt';
 import tokenGenerator from '../../../../helpers/TokenGenerator';
-import { ILoggedUser } from '../interfaces/ILoggedUser';
-import { IUserInfo } from '../interfaces/IUserInfo';
 import { ErrorTypes } from '../../../../helpers/ErrorCatalog';
 
 class UserService {

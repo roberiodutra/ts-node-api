@@ -1,7 +1,6 @@
 import { IQuestion, QuestionSchema } from '../interfaces/IQuestion';
 import QuestionModel from '../../../../database/models/Question';
 import { IQuestionCount, IQuestionInfo } from '../interfaces/IQuestionInfo';
-import { IFilterQuestions } from '../interfaces/IFilterQuestions';
 
 class QuestionService {
   constructor(private model = QuestionModel) { }
