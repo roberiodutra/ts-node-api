@@ -44,4 +44,14 @@ describe('Sign in route tests', () => {
         expect(body.message).to.be.eq("Wrong Password");
       });
   });
+
+  it('Internal error', async () => {
+    sinon.stub(User, 'readByEmail').resolves(getUser);
+    await chai.request(server.app)
+      .post('/sign_in')
+      .then(({ status, body }) => {
+        expect(status).to.be.eq(500);
+        expect(body.message).to.be.eq("Internal Error");
+      });
+  });
 });
