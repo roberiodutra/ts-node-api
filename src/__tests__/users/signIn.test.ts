@@ -33,4 +33,15 @@ describe('Sign in route tests', () => {
         expect(body.message).to.be.eq("User Not found");
       });
   });
+
+  it('When invalid password', async () => {
+    sinon.stub(User, 'readByEmail').resolves(getUser);
+    await chai.request(server.app)
+      .post('/sign_in')
+      .send({ ...signInUser, password: "wrong" })
+      .then(({ status, body }) => {
+        expect(status).to.be.eq(401);
+        expect(body.message).to.be.eq("Wrong Password");
+      });
+  });
 });
