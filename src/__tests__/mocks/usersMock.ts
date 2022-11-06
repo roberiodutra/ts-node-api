@@ -11,6 +11,14 @@ const signUpUser = {
   role: "member"
 };
 
+const wrongSignUpUser = {
+  email: "okemail@email.com",
+  password: "123",
+  firstName: "Te",
+  lastName: "Us",
+  role: 123
+};
+
 const sign = {
   id: "634b2a53c85bdce2fbb81e69",
   email: "user@email.com",
@@ -49,4 +57,20 @@ const newUser = {
   updatedAt: "2022-10-15T21:46:59.615Z"
 };
 
-export { sign, signInUser, signUpUser, getUser, newUser, newSign };
+const signUpErrorMessages = [
+  'Password must be at least 6 characters long',
+  'FirstName must be at least 3 characters long',
+  'LastName must be at least 3 characters long',
+  'Expected string, received number'
+];
+
+export {
+  sign,
+  signInUser,
+  signUpUser,
+  getUser,
+  newUser,
+  newSign,
+  wrongSignUpUser,
+  signUpErrorMessages,
+};
