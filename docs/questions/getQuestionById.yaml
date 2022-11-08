@@ -1,9 +1,9 @@
 paths:
-  /user/{id}:
-    delete:
+  /questions/{id}:
+    get:
       tags:
-        - Users
-      summary: Delete user
+        - Questions
+      summary: Get question by ID
       produces:
         - application/json
       parameters:
@@ -13,5 +13,5 @@ paths:
           schema:
             type: string
       responses:
-        204:
-          description: DELETED
+        200:
+          description: OK

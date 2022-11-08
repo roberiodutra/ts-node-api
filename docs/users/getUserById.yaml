@@ -12,7 +12,6 @@ paths:
           required: true
           schema:
             type: string
-            default: 6366de3f85126cc5b1817054
       responses:
         200:
           description: OK

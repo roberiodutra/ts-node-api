@@ -1,9 +1,9 @@
 paths:
-  /user/{id}:
+  /questions/{id}:
     put:
       tags:
-        - Users
-      summary: Update user
+        - Questions
+      summary: Update question
       produces:
         - application/json
       parameters:
@@ -18,16 +18,13 @@ paths:
             schema:
               type: object
               properties:
-                firstName:
+                question:
                   type: string
-                lastName:
-                  type: string
-                email:
+                answer:
                   type: string
               example:
-                firstName: Tester
-                lastName": User
-                email: user@email.com
+                question: What is Swagger?
+                answer: https://swagger.io
       responses:
         200:
           description: OK
