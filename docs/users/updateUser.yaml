@@ -1,0 +1,34 @@
+paths:
+  /user/{id}:
+    put:
+      tags:
+        - Users
+      summary: Update user
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            default: 6366de3f85126cc5b1817054
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+              example:
+                firstName: Tester
+                lastName": User
+                email: user@email.com
+      responses:
+        200:
+          description: OK
