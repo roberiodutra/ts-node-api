@@ -1,0 +1,39 @@
+paths:
+  /sign_up:
+    post:
+      tags:
+        - Users
+      summary: Create user in database
+      produces:
+        - application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                role:
+                  type: string
+
+              example:
+                firstName: Tester
+                lastName": User
+                email: user@email.com
+                password: 123456
+                role: member
+        required: true
+      responses:
+        201:
+          description: CREATED
+        400:
+          description: Some invalid information
+        409:
+          description: User Already Exists

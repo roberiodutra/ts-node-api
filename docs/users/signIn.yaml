@@ -1,0 +1,30 @@
+paths:
+  /sign_in:
+    post:
+      tags:
+        - Users
+      summary: Search user in database
+      produces:
+        - application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+
+              example:
+                email: user@email.com
+                password: 123456
+        required: true
+      responses:
+        200:
+          description: OK
+        401:
+          description: Wrong Password
+        404:
+          description: User Not found

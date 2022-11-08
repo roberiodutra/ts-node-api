@@ -7,7 +7,6 @@ import {
   newQuestion,
   newQuestionsErrorMessages,
 } from '../mocks/questionsMock';
-import MongoModel from '../../database/models/MongoModel';
 import Question from '../../database/models/Question';
 
 chai.use(chaiHttp);
