@@ -4,8 +4,7 @@ import cors from 'cors';
 import Endpoints from './routes';
 import connectToDatabase from "./database/models/connection";
 import ErrorHandler from "./middlewares/ErrorHandler";
-import swaggerUI from 'swagger-ui-express';
-import swaggerSpec from '../docs/swagger';
+import swaggerServer from '../docs/swagger';
 
 class App {
   public app: express.Application;
@@ -28,7 +27,7 @@ class App {
 
   private routes() {
     this.app.use(Endpoints);
-    this.app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+    this.app.use('/docs', ...swaggerServer);
     this.app.use(ErrorHandler);
   }
 
