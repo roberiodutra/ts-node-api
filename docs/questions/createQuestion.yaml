@@ -1,0 +1,28 @@
+paths:
+  /questions:
+    post:
+      tags:
+        - Questions
+      summary: Create question
+      produces:
+        - application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question:
+                  type: string
+                answer:
+                  type: string
+
+              example:
+                question: What is React?
+                answer: https:reactjs.org
+        required: true
+      responses:
+        201:
+          description: CREATED
+        400:
+          description: Some invalid information
