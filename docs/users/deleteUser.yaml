@@ -1,0 +1,18 @@
+paths:
+  /user/{id}:
+    delete:
+      tags:
+        - Users
+      summary: Delete user
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            default: 6366de3f85126cc5b1817054
+      responses:
+        204:
+          description: DELETED
