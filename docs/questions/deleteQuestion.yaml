@@ -1,0 +1,17 @@
+paths:
+  /questions/{id}:
+    delete:
+      tags:
+        - Questions
+      summary: Delete question
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: DELETED
